@@ -8,6 +8,7 @@ import java.util.UUID;
 public class UserMover {
 
     private UUID uuid;
-    private String serverName;
+    private String from;
+    private String to;
 
 }

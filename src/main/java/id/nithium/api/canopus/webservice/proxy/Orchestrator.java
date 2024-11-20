@@ -3,7 +3,7 @@ package id.nithium.api.canopus.webservice.proxy;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.proxy.server.ServerInfo;
-import id.nithium.api.canopus.webservice.event.UserMoveEvent;
+import id.nithium.api.canopus.webservice.model.UserMover;
 import id.nithium.api.exception.NithiumException;
 import id.nithium.api.canopus.webservice.Server;
 import lombok.Getter;
@@ -141,8 +141,12 @@ public class Orchestrator {
                                         Server server1 = webServiceProxy.getServerManager().getServers().get(i1);
 
                                         webServiceProxy.getProxyServer().getServer(server1.getName()).ifPresent(registeredServer1 -> {
-                                            UserMoveEvent userMoveEvent = new UserMoveEvent(player.getUniqueId(), registeredServer.getServerInfo().getName(), server1.getName());
-                                            webServiceProxy.getUserMoveEntries().getEntries().add(userMoveEvent);
+                                            UserMover userMover = new UserMover();
+                                            userMover.setUuid(player.getUniqueId());
+                                            userMover.setFrom(registeredServer.getServerInfo().getName());
+                                            userMover.setTo(registeredServer1.getServerInfo().getName());
+
+                                            webServiceProxy.getUserMoveEntries().getEntries().add(userMover);
                                             webServiceProxy.getUserMoveEntries().update();
 
                                             player.createConnectionRequest(registeredServer1).fireAndForget();
