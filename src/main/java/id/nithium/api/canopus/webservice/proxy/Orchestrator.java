@@ -31,7 +31,20 @@ public class Orchestrator {
         executorService.scheduleAtFixedRate(() -> {
             for (RegisteredServer registeredServer : webServiceProxy.getProxyServer().getAllServers()) {
                 if (webServiceProxy.getServerManager().getServer(registeredServer.getServerInfo().getName()) == null) {
-                    webServiceProxy.getProxyServer().unregisterServer(registeredServer.getServerInfo());
+                    if (registeredServer.getPlayersConnected().isEmpty()) {
+                        webServiceProxy.getProxyServer().unregisterServer(registeredServer.getServerInfo());
+                    } else {
+                        Random random = new Random();
+
+                        for (Player player : registeredServer.getPlayersConnected()) {
+                            int i1 = random.nextInt(webServiceProxy.getServerManager().getServers().size());
+                            Server server1 = webServiceProxy.getServerManager().getServers().get(i1);
+
+                            webServiceProxy.getProxyServer().getServer(server1.getName()).ifPresent(registeredServer1 -> {
+                                player.createConnectionRequest(registeredServer1).fireAndForget();
+                            });
+                        }
+                    }
                 }
             }
 
@@ -141,14 +154,6 @@ public class Orchestrator {
                                         Server server1 = webServiceProxy.getServerManager().getServers().get(i1);
 
                                         webServiceProxy.getProxyServer().getServer(server1.getName()).ifPresent(registeredServer1 -> {
-                                            UserMover userMover = new UserMover();
-                                            userMover.setUuid(player.getUniqueId());
-                                            userMover.setFrom(registeredServer.getServerInfo().getName());
-                                            userMover.setTo(registeredServer1.getServerInfo().getName());
-
-                                            webServiceProxy.getUserMoveEntries().getEntries().add(userMover);
-                                            webServiceProxy.getUserMoveEntries().update();
-
                                             player.createConnectionRequest(registeredServer1).fireAndForget();
                                         });
                                     }
