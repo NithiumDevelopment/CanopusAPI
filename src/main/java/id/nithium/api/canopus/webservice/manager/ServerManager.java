@@ -22,16 +22,25 @@ public class ServerManager {
         }
     }
 
-    public Server getServer(String name) {
-        NithiumHttpResponse<Server> response = api.getNithiumAPI().GET(DataType.DATA_3, "servers/" + name, api.getAPI_KEY(), Server.class);
+    public Server getServer(String value) {
+        NithiumHttpResponse<Server> response = api.getNithiumAPI().GET(DataType.DATA_3, "servers/" + value, api.getAPI_KEY(), Server.class);
 
         if (response.response().getCode() == 200) {
-            Server server = response.obj();
-
-            return server;
+            return response.obj();
         } else {
             if (response.response().getCode() == 404) {
-                return null;
+                try {
+                    int i = Integer.parseInt(value);
+
+                    NithiumHttpResponse<Server> response1 = api.getNithiumAPI().GET(DataType.DATA_3, "servers/" + i, api.getAPI_KEY(), Server.class);
+                    if (response.response().getCode() == 200) {
+                        return response1.obj();
+                    } else {
+                        throw new BadCodeException(api.getDataType(), response1.response().getCode());
+                    }
+                } catch (NumberFormatException e) {
+                    throw new BadCodeException(api.getDataType(), response.response().getCode());
+                }
             } else {
                 throw new BadCodeException(api.getDataType(), response.response().getCode());
             }
