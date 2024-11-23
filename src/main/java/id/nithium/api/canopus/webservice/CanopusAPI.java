@@ -39,16 +39,6 @@ public class CanopusAPI {
         }
     }
 
-    public UserMoveEntries getUserMoveEntries() throws BadCodeException {
-        NithiumHttpResponse<UserMoveEntries> response = nithiumAPI.GET(dataType, "usermoveentries", API_KEY, UserMoveEntries.class);
-
-        if (response.response().getCode() == 200) {
-            return response.obj();
-        } else {
-            throw new BadCodeException(dataType, response.response().getCode());
-        }
-    }
-
     public void setStatus(@NonNull Status status) {
         nithiumAPI.PUT(dataType, "status", API_KEY, status);
     }
