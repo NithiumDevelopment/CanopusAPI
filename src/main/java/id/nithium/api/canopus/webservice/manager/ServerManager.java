@@ -14,7 +14,7 @@ public class ServerManager {
     private final CanopusAPI api = CanopusAPI.getApi();
 
     public List<Server> getServers() {
-        NithiumHttpResponse<List> response = api.getNithiumAPI().GET(DataType.DATA_3, "servers", List.class);
+        NithiumHttpResponse<List> response = api.getNithiumAPI().GET(DataType.DATA_3, "servers", api.getAPI_KEY(), List.class);
         if (response.response().getCode() == 200) {
             return response.obj();
         } else {
@@ -23,7 +23,7 @@ public class ServerManager {
     }
 
     public Server getServer(String name) {
-        NithiumHttpResponse<Server> response = api.getNithiumAPI().GET(DataType.DATA_3, "servers/" + name, Server.class);
+        NithiumHttpResponse<Server> response = api.getNithiumAPI().GET(DataType.DATA_3, "servers/" + name, api.getAPI_KEY(), Server.class);
 
         if (response.response().getCode() == 200) {
             Server server = response.obj();
@@ -39,7 +39,7 @@ public class ServerManager {
     }
 
     public Server getServer(int port) {
-        NithiumHttpResponse<Server> response = api.getNithiumAPI().GET(DataType.DATA_3, "servers/" + port, Server.class);
+        NithiumHttpResponse<Server> response = api.getNithiumAPI().GET(DataType.DATA_3, "servers/" + port, api.getAPI_KEY(), Server.class);
 
         if (response.response().getCode() == 200) {
             Server server = response.obj();
