@@ -63,7 +63,7 @@ public class ServerManager {
     public void changeServer(Server server) {
         if (getServer(server.getName()) == null) throw new NithiumException("Unable to change server, because the server is not exists (" + server.getName() + ")");
 
-        api.getNithiumAPI().PUT(api.getDataType(), "servers", api.getAPI_KEY(), server);
+        api.getNithiumAPI().PUT(api.getDataType(), "servers/" + server.getName(), api.getAPI_KEY(), server);
     }
 
     public void deleteServer(String name) {
