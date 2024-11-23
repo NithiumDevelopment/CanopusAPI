@@ -1,6 +1,8 @@
-package id.nithium.api.canopus.webservice;
+package id.nithium.api.canopus.webservice.manager;
 
 import id.nithium.api.NithiumHttpResponse;
+import id.nithium.api.canopus.webservice.CanopusAPI;
+import id.nithium.api.canopus.webservice.model.Server;
 import id.nithium.api.exception.NithiumException;
 import id.nithium.api.type.DataType;
 import id.nithium.api.canopus.webservice.exception.BadCodeException;

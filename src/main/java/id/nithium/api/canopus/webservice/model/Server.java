@@ -1,4 +1,4 @@
-package id.nithium.api.canopus.webservice;
+package id.nithium.api.canopus.webservice.model;
 
 import lombok.Data;
 

@@ -2,7 +2,7 @@ package id.nithium.api.canopus.webservice;
 
 import id.nithium.api.NithiumAPI;
 import id.nithium.api.NithiumHttpResponse;
-import id.nithium.api.canopus.webservice.event.UserMoveEntries;
+import id.nithium.api.canopus.webservice.manager.ServerManager;
 import id.nithium.api.type.DataType;
 import id.nithium.api.canopus.webservice.exception.BadCodeException;
 import id.nithium.api.canopus.webservice.model.Status;
