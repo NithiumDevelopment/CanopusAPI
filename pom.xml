@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.github.NithiumDevelopment</groupId>
             <artifactId>NithiumAPI</artifactId>
-            <version>e94dd899a6</version>
+            <version>7d7a0bb239</version>
         </dependency>
     </dependencies>
 </project>
